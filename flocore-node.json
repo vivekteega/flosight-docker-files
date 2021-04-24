@@ -1,0 +1,32 @@
+{
+  "version": "5.0.0-beta.44",
+  "network": "livenet",
+  "port": 3001,
+  "services": [
+    "address",
+    "block",
+    "db",
+    "fee",
+    "header",
+    "mempool",
+    "p2p",
+    "timestamp",
+    "transaction",
+    "flosight-api",
+    "flosight-ui",
+    "web"
+  ],
+  "datadir": "/data",
+  "servicesConfig": {
+    "flosight-api": {
+      "disableRateLimiter": true,
+      "routePrefix": "api",
+      "cwdRequirePath": "node_modules/flosight-api"
+    },
+    "flosight-ui": {
+      "routePrefix": "",
+      "apiPrefix": "api",
+      "cwdRequirePath": "node_modules/flosight-ui"
+    }
+  }
+}
