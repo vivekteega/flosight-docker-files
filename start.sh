@@ -77,20 +77,20 @@ echo 'different' > previousHealthCheck.log
 
 # Every 5 minutes
 while true; do
-#	# Check to see if the most recent block hash is the same as the last time we checked.
-#	if [ "$(cat previousHealthCheck.log)" == "$(cat currentHealthCheck.log)" ] 
-#	then
-#		# Restart instance
-#		echo "NO NEW BLOCKS IN 5+ MINUTES - RESTARTING PROCESS"
-#		kill -2 $(cat /data/flosight.pid)
-#		wait $(cat /data/flosight.pid)
-#		./node_modules/flocore-node/bin/flocore-node start >> /data/latest.log &
-#		# Store PID for later
-#		echo $! > /data/flosight.pid
-fi
-#	# Wait 5 minutes before checking again
-timeout 5m tail -f /data/latest.log
-#
-#	mv currentHealthCheck.log previousHealthCheck.log
-#	curl --silent http://localhost:3001/api/status?q=getBestBlockHash > currentHealthCheck.log
+	# Check to see if the most recent block hash is the same as the last time we checked.
+	#if [ "$(cat previousHealthCheck.log)" == "$(cat currentHealthCheck.log)" ] 
+	#then
+	#	# Restart instance
+	#	echo "NO NEW BLOCKS IN 5+ MINUTES - RESTARTING PROCESS"
+	#	kill -2 $(cat /data/flosight.pid)
+	#	wait $(cat /data/flosight.pid)
+	#	./node_modules/flocore-node/bin/flocore-node start >> /data/latest.log &
+	#	# Store PID for later
+	#	echo $! > /data/flosight.pid
+	#fi
+	# Wait 5 minutes before checking again
+	timeout 5m tail -f /data/latest.log
+
+	mv currentHealthCheck.log previousHealthCheck.log
+	curl --silent http://localhost:3001/api/status?q=getBestBlockHash > currentHealthCheck.log
 done;
