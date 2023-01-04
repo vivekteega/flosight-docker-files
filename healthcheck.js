@@ -35,9 +35,8 @@ checks.push(function check_API_sync() {
     })
 });
 
-//Check if the last synced block time is not too old
+//Check if the last synced block is matched with flo core wallet
 checks.push(function check_lastBlockTime() {
-    const ALLOW_BLOCK_DELAY = 60 * 60 * 1000; //1hr
     return new Promise((resolve, reject) => {
         fetch(URL + "/api/blocks?limit=1").then(res => {
             if (!res.ok || res.status !== 200)
@@ -45,16 +44,19 @@ checks.push(function check_lastBlockTime() {
             res.json().then(data => {
                 if (!data.blocks.length)
                     return resolve(`Last Block not found`);
-                let last_block_no = data.blocks[0].height, last_block_time = data.blocks[0].time;
-                last_block_time = last_block_time * 1000; //sec to ms
-                if (last_block_time + ALLOW_BLOCK_DELAY < Date.now())
-                    return resolve(`Last Block#${last_block_no} synced at ${last_block_time}`);
-                resolve(true);
+                let last_block_no = data.blocks[0].height;
+                fetch('https://ranchimallflo.duckdns.org/api/v2.0/flocoreHeight').then(res2 => {
+                    res2.json().then(data_2 => {
+                        let blockchain_height = data_2.blocks;
+                        if (blockchain_height != last_block_no)
+                            return resolve(`Last Block#${last_block_no}. Blockchain height=${blockchain_height}`);
+                        resolve(true);
+                    }).catch(error => resolve(`Get block height: response not JSON`))
+                }).catch(error => reject(error))
             }).catch(error => resolve(`Last Block API: response not JSON`))
         }).catch(error => reject(error))
     })
 })
-
 Promise.all(checks.map(c => c())).then(results => {
     let reasons = results.filter(r => r !== true);
     if (!reasons.length) {
