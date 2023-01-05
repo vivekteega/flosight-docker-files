@@ -32,3 +32,7 @@ cd flosight-docker-files
 sudo docker build -t ranchimallfze/flosight:1.0.0 .
 ```
 
+## CI 
+
+This repo has a continuos integration with DockerHub
+
