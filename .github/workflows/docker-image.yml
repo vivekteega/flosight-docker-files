@@ -22,7 +22,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ranchimallfze/flosight:$(date +%s)
+      run: docker build . --file Dockerfile --tag ranchimallfze/flosight:github
       
     - name: Docker Push
-      run: docker push ranchimallfze/flosight
+      run: docker push ranchimallfze/flosight:github
