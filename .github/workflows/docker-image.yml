@@ -2,24 +2,26 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ master ]
 
 jobs:
 
   build:
 
-    runs-on: [self-hosted, linux]
+    runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_HUB_USERNAME}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_PASS}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: sudo docker build -t ranchimallfze/flosight:$(date +%s) .
-    
-    - name: Login to Dockerhub 
-      run: sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASS }}
+      run: docker build . --file Dockerfile --tag ranchimallfze/flosight:$(date +%s)
       
-    - name: Push to Dockerhub 
-      run: sudo docker push ranchimallfze/flosight:$(date +%s)
- 
+    - name: Docker Push
+      run: docker push ranchimallfze/flosight
