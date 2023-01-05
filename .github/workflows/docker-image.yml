@@ -15,11 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build -t ranchimallfze/flosight:$(date +%s) .
+      run: sudo docker build -t ranchimallfze/flosight:$(date +%s) .
     
     - name: Login to Dockerhub 
-      run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASS }}
+      run: sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASS }}
       
     - name: Push to Dockerhub 
-      run: docker push ranchimallfze/flosight:$(date +%s)
+      run: sudo docker push ranchimallfze/flosight:$(date +%s)
  
