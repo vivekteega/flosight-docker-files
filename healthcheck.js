@@ -46,12 +46,14 @@ checks.push(function check_lastBlockTime() {
                     return resolve(`Last Block not found`);
                 let last_block_no = data.blocks[0].height;
                 fetch('https://ranchimallflo.duckdns.org/api/v2.0/flocoreHeight').then(res2 => {
+                    if (!res2.ok || res2.status !== 200)
+                        return resolve(`Get blockchain height fetch with status ${res.status}`);
                     res2.json().then(data_2 => {
                         let blockchain_height = data_2.blocks;
                         if (blockchain_height != last_block_no)
                             return resolve(`Last Block#${last_block_no}. Blockchain height=${blockchain_height}`);
                         resolve(true);
-                    }).catch(error => resolve(`Get block height: response not JSON`))
+                    }).catch(error => resolve(`Get blockchain height: response not JSON`))
                 }).catch(error => reject(error))
             }).catch(error => resolve(`Last Block API: response not JSON`))
         }).catch(error => reject(error))
