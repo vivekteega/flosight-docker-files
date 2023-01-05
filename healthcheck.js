@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const URL = 'http://flosight.duckdns.org';
+const URL = 'http://localhost:3001';
 
 const checks = [];
 
