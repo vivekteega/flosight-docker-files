@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ranchimallfze/flosight:$(date +%s)
+      run: docker build -t ranchimallfze/flosight:$(date +%s) .
     
     - name: Login to Dockerhub 
       run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASS }}
