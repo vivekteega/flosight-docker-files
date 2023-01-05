@@ -1,0 +1,5 @@
+healthchecks.md
+node_modules/
+notes.js
+package-lock.json
+package.json
