@@ -11,7 +11,7 @@ RUN update-ca-certificates
 # Install flosight
 WORKDIR /flosight
 ADD https://api.github.com/repos/ranchimall/flocore-node/git/refs/heads/master flocore-node-version.json
-RUN git clone https://github.com/ranchimall/flocore-node
+RUN git clone -d dev https://github.com/ranchimall/flocore-node
 ADD https://api.github.com/repos/oipwg/flosight-ui/git/refs/heads/master flosight-ui-version.json
 ADD https://api.github.com/repos/oipwg/flosight-api/git/refs/heads/master flosight-api-version.json
 RUN npm install ./flocore-node/
