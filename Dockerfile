@@ -15,7 +15,7 @@ RUN git clone https://github.com/ranchimall/flocore-node
 ADD https://api.github.com/repos/oipwg/flosight-ui/git/refs/heads/master flosight-ui-version.json
 ADD https://api.github.com/repos/oipwg/flosight-api/git/refs/heads/master flosight-api-version.json
 RUN npm install ./flocore-node/
-RUN npm install flosight-ui flosight-api
+RUN npm install flosight-ui flosight-api node-fetch@2
 
 # Setup Nginx
 RUN service nginx stop && rm /etc/nginx/nginx.conf
