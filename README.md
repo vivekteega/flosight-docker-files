@@ -1,4 +1,6 @@
 # Flosight Docker files
+![example workflow](https://github.com/ranchimall/flosight-docker-files/actions/workflows/build-publish-main/badge.svg)
+
 ## Command to run the docker
 
 ```
